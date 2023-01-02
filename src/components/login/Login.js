@@ -14,15 +14,19 @@ const Login = () => {
           },
         })
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             const refresh_token = localStorage.getItem("refresh");
             axios
               .post(
                 `https://kauth.kakao.com/oauth/token?grant_type=refresh_token&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&refresh_token=${refresh_token}`,
-                {},
                 {
                   headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                },
+                {
+                  data: {
+                    client_secret: process.env.REACT_APP_KAKAO_CLIENT_SECRET,
                   },
                 }
               )
@@ -67,19 +71,6 @@ const Login = () => {
           }}
           src="/images/kakao_login.png"
         />
-        {/* <LoginButton
-          onClick={() => {
-            getToken();
-            navigate("/agreement");
-          }}
-          src="/images/google_login.png"
-        /> */}
-        {/* <LoginButton
-        onClick={() => {
-          navigate("/agreement");
-        }}
-        src="/images/apple_login.png"
-      /> */}
       </Footer>
       <CompanyText
         onClick={() => {
